@@ -1,0 +1,8 @@
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: max-content;
+    grid-row-gap: 15px;
+    justify-items: center;
+}

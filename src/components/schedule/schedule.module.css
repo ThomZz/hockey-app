@@ -1,0 +1,41 @@
+.slider-container {
+  width: 98vw;
+  height: 200px;
+}
+
+.slider-container svg {
+  fill: #ffffff41;
+}
+
+.slider-container svg:hover {
+  fill: #ffffff;
+}
+
+.slider-container button:hover svg {
+  fill: #ffffff;
+}
+
+.slider {
+  padding: 0px 3em 0px 3em;
+}
+
+.loader-container {
+  display: flex;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #2c363d;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

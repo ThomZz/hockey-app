@@ -1,0 +1,27 @@
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+  width: 270px;
+  background-color:#00000078;
+  box-shadow: 5px 5px 10px 0px #000000;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.card:hover {
+  transition: 0.5s all;
+  cursor: pointer;
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 5px 5px 20px -2px #000000;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(270px, min-content));
+  grid-gap: 10px;
+}

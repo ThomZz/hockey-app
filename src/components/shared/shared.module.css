@@ -1,0 +1,37 @@
+.background {
+  position: absolute;
+  z-index: -1;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  height: 100%;
+  opacity: 0.15;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.player-img {
+  background-size: cover;
+}
+
+@media screen and (max-width: 1800px) {
+  .background {
+    background-repeat: repeat-y;
+    background-position-y: top;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
