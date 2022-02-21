@@ -13,7 +13,7 @@ const PlayerCard: React.FC<{ player: NHLPlayerModel }> = ({ player }) => {
         <div className={styles.card}>
             <div>
                 <img className={sharedStyles["player-img"]} style={{ width: "168px", height: "168px", backgroundImage: 'url("/player-loading.png")' }}
-                    loading="lazy" src={`http://nhl.bamcontent.com/images/headshots/current/168x168/${player.id}.jpg`}
+                    loading="lazy" src={`https://cms.nhl.bamgrid.com/images/headshots/current/168x168/${player.id}.jpg`}
                     alt={player.fullName} onError={onImgLoadError} />
                 <h2>{player.primaryNumber} {player.fullName}</h2>
             </div>

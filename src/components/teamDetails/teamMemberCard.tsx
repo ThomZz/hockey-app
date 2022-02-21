@@ -16,7 +16,7 @@ const TeamMemberCard: React.FC<{ teamId: number, member: NHLRosterMemberModel }>
         <Link className={styles.card} to={AppRoutes.resolvePath("playerDetails", { id: teamId, playerId: person.id })}>
             <h3>{person.fullName}</h3>
             <img className={sharedStyles["player-img"]} style={{ width: "100px", height: "100px", backgroundImage: 'url("/player-loading.png")'}} 
-                loading="lazy" src={`http://nhl.bamcontent.com/images/headshots/current/168x168/${person.id}.jpg`} 
+                loading="lazy" src={`https://cms.nhl.bamgrid.com/images/headshots/current/168x168/${person.id}.jpg`} 
                 alt={person.fullName} onError={onImgLoadError}/>
             <table cellSpacing="0" cellPadding="10">
                 <tbody>
