@@ -34,7 +34,7 @@
   display: grid;
   align-items: center;
   font-size: 12px;
-  grid-template-columns: min-content 1fr min-content;
+  grid-template-columns: min-content 1fr min-content min-content;
   grid-column-gap: 15px;
   width: 100%;
   height: fit-content;
@@ -47,6 +47,16 @@
 
 .team-record {
   font-size: 11px;
+}
+
+.team-situation {
+  color: #FFF;
+  font-size: 9px;
+  font-weight: bold;
+  background-color: red;
+  border-radius: 2px;
+  padding: 1px;
+  margin-left: 2px;
 }
 
 .emphasis span:not(.team-record)  {

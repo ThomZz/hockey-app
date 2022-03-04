@@ -1,4 +1,5 @@
 import { LinkedResourceDto } from "./stats";
+import { NHLTeamDto } from "./team";
 
 export type NHLScheduleGroupDto = {
     readonly dates: NHLScheduleDto[];
@@ -25,6 +26,7 @@ export type NHLGameDto = {
     readonly season: string;
     readonly status: NHLGameStatusDto;
     readonly teams: NHLGameResultDto;
+    readonly linescore: NHLGameLineScoreDto;
     readonly venue: LinkedResourceDto;
 }
 
@@ -39,4 +41,26 @@ export type NHLGameStatusDto = {
 export type NHLGameResultDto = {
     readonly away: any;
     readonly home: any;
+}
+
+export type NHLGameLineScoreResultDto = {
+    readonly away: NHLGameLineScoreResultDetailsDto;
+    readonly home: NHLGameLineScoreResultDetailsDto;
+}
+
+export type NHLGameLineScoreResultDetailsDto = {
+    readonly goaliePulled: boolean;
+    readonly goals: number;
+    readonly numSkaters: number;
+    readonly powerPlay: boolean;
+    readonly shotsOnGoal: number;
+    readonly team: NHLTeamDto;
+}
+
+export type NHLGameLineScoreDto = {
+    readonly currentPeriod:  number;
+    readonly currentPeriodOrdinal:  string;
+    readonly currentPeriodTimeRemaining: string;
+    readonly hasShootout: boolean;
+    readonly teams: NHLGameLineScoreResultDto;
 }

@@ -9,10 +9,6 @@ export interface ILogger {
 @singleton()
 export default class Logger implements ILogger {
 
-  constructor() {
-    debugger;
-  }
-  
   info(message: string) {
     console.log(`info: ${message}`);
   }

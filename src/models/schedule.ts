@@ -1,6 +1,7 @@
 import { DateHelper } from "../utils/date";
-import { NHLGameDto, NHLGameResultDto, NHLGameStatusDto, NHLScheduleDto, NHLScheduleGroupDto } from "./dtos/schedule";
+import { NHLGameDto, NHLGameLineScoreDto, NHLGameLineScoreResultDetailsDto, NHLGameLineScoreResultDto, NHLGameResultDto, NHLGameStatusDto, NHLScheduleDto, NHLScheduleGroupDto } from "./dtos/schedule";
 import { LinkedResourceModel } from "./stats";
+import { NHLTeamModel } from "./team";
 
 export type NHLScheduleGroupModel = {
     readonly dates: NHLScheduleModel[];
@@ -18,7 +19,7 @@ export namespace NHLScheduleGroupModel {
         }
     }
 
-    export function FindNearestGameIndex({ dates }: NHLScheduleGroupModel): number {
+    export function FindNearestGameIndex({ dates }: NHLScheduleGroupModel): number {
         const today = DateHelper.today();
         const dts = dates.map(d => new Date(`${d.date}:`));
         if (dts?.length) {
@@ -72,6 +73,7 @@ export type NHLGameModel = {
     readonly season: string;
     readonly status: NHLGameStatusModel;
     readonly results: NHLGameResultModel;
+    readonly linescore: NHLGameLineScoreModel;
     readonly venue: LinkedResourceModel;
 }
 
@@ -81,6 +83,7 @@ export namespace NHLGameModel {
             ...dto,
             status: NHLGameStatusModel.fromDto(dto.status),
             results: NHLGameResultModel.fromDto(dto.teams),
+            linescore: NHLGameLineScoreModel.fromDto(dto.linescore)
         };
     }
 
@@ -113,5 +116,54 @@ export type NHLGameResultModel = {
 export namespace NHLGameResultModel {
     export function fromDto(dto: NHLGameResultDto): NHLGameResultModel {
         return { ...dto };
+    }
+}
+
+export type NHLGameLineScoreResultModel = {
+    readonly away: NHLGameLineScoreResultDetailsModel;
+    readonly home: NHLGameLineScoreResultDetailsModel;
+}
+
+export namespace NHLGameLineScoreResultModel {
+    export function fromDto(dto: NHLGameLineScoreResultDto): NHLGameLineScoreResultModel {
+        return {
+            away: NHLGameLineScoreResultDetailsModel.fromDto(dto.away),
+            home: NHLGameLineScoreResultDetailsModel.fromDto(dto.home)
+        };
+    }
+}
+
+export type NHLGameLineScoreResultDetailsModel = {
+    readonly goaliePulled: boolean;
+    readonly goals: number;
+    readonly numSkaters: number;
+    readonly powerPlay: boolean;
+    readonly shotsOnGoal: number;
+    readonly team: NHLTeamModel;
+}
+
+export namespace NHLGameLineScoreResultDetailsModel {
+    export function fromDto(dto: NHLGameLineScoreResultDetailsDto): NHLGameLineScoreResultDetailsModel {
+        return {
+            ...dto,
+            team: NHLTeamModel.fromDto(dto.team)
+        };
+    }
+}
+
+export type NHLGameLineScoreModel = {
+    readonly currentPeriod: number;
+    readonly currentPeriodOrdinal: string;
+    readonly currentPeriodTimeRemaining: string;
+    readonly hasShootout: boolean;
+    readonly results: NHLGameLineScoreResultModel;
+}
+
+export namespace NHLGameLineScoreModel {
+    export function fromDto(dto: NHLGameLineScoreDto): NHLGameLineScoreModel {
+        return {
+            ...dto,
+            results: NHLGameLineScoreResultModel.fromDto(dto.teams)
+        };
     }
 }

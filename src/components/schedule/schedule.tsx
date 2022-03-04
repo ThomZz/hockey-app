@@ -56,9 +56,9 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex }) => {
     return loading ? <div className={styles["loader-container"]}><div className={styles.loader}></div></div> : (
         <div className={styles["slider-container"]}>
             <Splide className={styles.slider} ref={slider} options={options}>
-                {dates?.map(d => {
+                {dates?.map((d, idx) => {
                     return (
-                        <ScheduleGamesMemo games={d.games} />
+                        <ScheduleGamesMemo key={`${d.date}-${idx}`} games={d.games} />
                     )
                 })}
             </Splide>

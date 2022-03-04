@@ -14,7 +14,7 @@ import { NHLScheduleGroupDto } from "../models/dtos/schedule";
 @singleton()
 export default class NHLStatsApiService {
 
-  constructor(@inject(Logger) private _logger?: Logger) {  debugger; }
+  constructor(@inject(Logger) private _logger?: Logger) {  }
 
   async getTeams(): Promise<NHLTeamModel[]> {
     this._logger?.info("gettingTeams");
@@ -30,7 +30,6 @@ export default class NHLStatsApiService {
   }
 
   async getSchedule(startDate: string, endDate: string, teamId?: number, ): Promise<NHLScheduleGroupModel> {
-    debugger;
     const result = await axios.get<NHLScheduleGroupDto>(`https://statsapi.web.nhl.com/api/v1/schedule?${teamId ? `teamId=${teamId}&` : ""}startDate=${startDate}&endDate=${endDate}&expand=schedule.linescore`);
     return NHLScheduleGroupModel.fromDto(result.data);
   }
