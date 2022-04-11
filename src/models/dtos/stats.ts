@@ -19,28 +19,28 @@ export type StatsDto = {
 }
 
 export type PlayerStatDetailsDto = {
-    readonly blocked: number
-    readonly evenTimeOnIce: string
-    readonly faceOffPct: number
-    readonly games: number
-    readonly gameWinningGoals: number
-    readonly goals: number
-    readonly assists: number
-    readonly hits: number
-    readonly overTimeGoals: number
-    readonly pim: number
-    readonly plusMinus: number
-    readonly points: number
-    readonly powerPlayGoals: number
-    readonly powerPlayPoints: number
-    readonly powerPlayTimeOnIce: string
-    readonly shifts: number
-    readonly shortHandedGoals: number
-    readonly shortHandedPoints: number
-    readonly shortHandedTimeOnIce: string
-    readonly shotPct: number
-    readonly shots: number
-    readonly timeOnIce: string
+    readonly blocked: number;
+    readonly evenTimeOnIce: string;
+    readonly faceOffPct: number;
+    readonly games: number;
+    readonly gameWinningGoals: number;
+    readonly goals: number;
+    readonly assists: number;
+    readonly hits: number;
+    readonly overTimeGoals: number;
+    readonly pim: number;
+    readonly plusMinus: number;
+    readonly points: number;
+    readonly powerPlayGoals: number;
+    readonly powerPlayPoints: number;
+    readonly powerPlayTimeOnIce: string;
+    readonly shifts: number;
+    readonly shortHandedGoals: number;
+    readonly shortHandedPoints: number;
+    readonly shortHandedTimeOnIce: string;
+    readonly shotPct: number;
+    readonly shots: number;
+    readonly timeOnIce: string;
 }
 
 export type GoalieStatDetailsDto = {

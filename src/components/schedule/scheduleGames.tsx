@@ -3,19 +3,21 @@ import { NHLGameLineScoreModel, NHLGameLineScoreResultDetailsModel, NHLGameModel
 import { DateHelper } from '../../utils/date';
 import styles from "./scheduleGames.module.css";
 import { SplideSlide } from '@splidejs/react-splide';
+import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../app/routes';
 
 const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
 
-    const renderTeamSituation = ( isPowerplay: boolean, isGoaliePulled: boolean ) => {
-            return (
-                <>
-                    { isPowerplay ?  (<span className={styles["team-situation"]}>PP</span>) :  void 0 }
-                    { isGoaliePulled ?  (<span className={styles["team-situation"]}>EN</span>) :  void 0 }
-                </>
-            )
+    const renderTeamSituation = (isPowerplay: boolean, isGoaliePulled: boolean) => {
+        return (
+            <>
+                {isPowerplay ? (<span className={styles["team-situation"]}>PP</span>) : void 0}
+                {isGoaliePulled ? (<span className={styles["team-situation"]}>EN</span>) : void 0}
+            </>
+        )
     }
 
-    const renderScore = (right: any, left: any, rightLinescore: NHLGameLineScoreResultDetailsModel, status: NHLGameStatusModel ) => {
+    const renderScore = (right: any, left: any, rightLinescore: NHLGameLineScoreResultDetailsModel, game: NHLGameModel) => {
         return (
             <div className={right?.score > left?.score ? styles.emphasis : styles.discrete}>
                 <img height="50" width="50" alt="" src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${right?.team.id}.svg`} />
@@ -24,7 +26,7 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
                     <span className={styles["team-record"]}>({right?.leagueRecord.wins} - {right?.leagueRecord.losses} - {right?.leagueRecord.ot})</span>
                 </div>
                 <div>
-                    {status.statusCode === "3"  ?  renderTeamSituation(rightLinescore?.powerPlay, rightLinescore?.goaliePulled) : void 0 }
+                    {game.status.statusCode === "3" ? renderTeamSituation(rightLinescore?.powerPlay, rightLinescore?.goaliePulled) : void 0}
                 </div>
                 <span>{right?.score}</span>
             </div>
@@ -62,13 +64,13 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
                     <SplideSlide key={`${game.gameDate}-${idx}`}>
                         <div className={styles.container}>
                             {dateHeader(allGames[idx - 1]?.gameDate, game.gameDate)}
-                            <div className={styles.card}>
+                            <Link className={styles.card} to={AppRoutes.resolvePath(AppRoutes.routes.gameDetails, { gameId: game.gamePk })}>
                                 <span className={styles.date}>{DateHelper.toString(new Date(game.gameDate), true)}</span>
                                 <hr className={styles.separator}></hr>
                                 {gameState(game.status, game.linescore)}
-                                {renderScore(game.results?.home, game.results?.away, game.linescore?.results?.home, game.status)}
-                                {renderScore(game.results?.away, game.results?.home, game.linescore?.results?.away, game.status)}
-                            </div>
+                                {renderScore(game.results?.home, game.results?.away, game.linescore?.results?.home, game)}
+                                {renderScore(game.results?.away, game.results?.home, game.linescore?.results?.away, game)}
+                            </Link>
                         </div>
                     </SplideSlide>
                 )

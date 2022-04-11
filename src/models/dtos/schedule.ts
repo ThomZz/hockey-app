@@ -32,7 +32,7 @@ export type NHLGameDto = {
 
 export type NHLGameStatusDto = {
     readonly abstractGameState: string;
-    readonly odedGameState: string;
+    readonly codedGameState: string;
     readonly detailedState: string;
     readonly statusCode: string;
     readonly startTimeTBD: boolean;

@@ -10,6 +10,8 @@ import { NHLPlayerModel } from "../models/player";
 import { NHLTeamModel } from "../models/team";
 import { NHLScheduleGroupModel } from "../models/schedule";
 import { NHLScheduleGroupDto } from "../models/dtos/schedule";
+import { NHLLiveFeedDto } from "../models/dtos/live-feed";
+import { NHLLiveFeedModel } from "../models/live-feed";
 
 @singleton()
 export default class NHLStatsApiService {
@@ -32,6 +34,11 @@ export default class NHLStatsApiService {
   async getSchedule(startDate: string, endDate: string, teamId?: number, ): Promise<NHLScheduleGroupModel> {
     const result = await axios.get<NHLScheduleGroupDto>(`https://statsapi.web.nhl.com/api/v1/schedule?${teamId ? `teamId=${teamId}&` : ""}startDate=${startDate}&endDate=${endDate}&expand=schedule.linescore`);
     return NHLScheduleGroupModel.fromDto(result.data);
+  }
+
+  async getLiveFeedDetails(gameId: string): Promise<NHLLiveFeedModel> {
+    const result = await axios.get<NHLLiveFeedDto>(`https://statsapi.web.nhl.com/api/v1/game/${gameId}/feed/live`);
+    return NHLLiveFeedModel.fromDto(result.data);
   }
 
   async getPlayerDetails(playerId: number): Promise<NHLPlayerModel> {

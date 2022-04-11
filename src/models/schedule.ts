@@ -96,7 +96,7 @@ export namespace NHLGameModel {
 
 export type NHLGameStatusModel = {
     readonly abstractGameState: string;
-    readonly odedGameState: string;
+    readonly codedGameState: string;
     readonly detailedState: string;
     readonly statusCode: string;
     readonly startTimeTBD: boolean;

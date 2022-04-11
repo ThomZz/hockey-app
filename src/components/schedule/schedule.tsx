@@ -4,6 +4,7 @@ import ScheduleGames from './scheduleGames';
 import { Splide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 import styles from "./schedule.module.css";
+import sharedStyles from "../shared/shared.module.css";
 import throttle from 'lodash.throttle';
 
 type Props = {
@@ -53,7 +54,7 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex }) => {
         }
     }, [startIndex]);
 
-    return loading ? <div className={styles["loader-container"]}><div className={styles.loader}></div></div> : (
+    return loading ? <div className={styles["loader-container"]}><div className={sharedStyles.loader}></div></div> : (
         <div className={styles["slider-container"]}>
             <Splide className={styles.slider} ref={slider} options={options}>
                 {dates?.map((d, idx) => {

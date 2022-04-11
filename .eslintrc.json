@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts?(x)"
+      ],
+      "rules": {
+        "@typescript-eslint/no-redeclare": [
+          "off"
+        ],
+        "react-hooks/exhaustive-deps": [
+          "off"
+        ]
+      }
+    }
+  ]
+}

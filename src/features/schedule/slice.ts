@@ -18,7 +18,6 @@ const initialState: ScheduleState = {
 export const getSchedule = createAsyncThunk(
     'schedules',
     async ({ startDate, endDate }: { startDate: string, endDate: string }) => {
-        debugger;
         const svc = container.resolve(NHLStatsApiService);
         return await svc.getSchedule(startDate, endDate);
     }

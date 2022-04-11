@@ -5,17 +5,19 @@ export interface AppRoute {
     readonly path: string
 }
 
-type RouteName = "home" | "teamDetails" | "playerDetails";
+type RouteName = "home" | "teamDetails" | "playerDetails" | "gameDetails";
 
 export namespace AppRoutes {
     const home = { path: "/" };
     const teamDetails = { path: "/teams/:id" };
     const playerDetails = { path: "/players/:playerId", parent: teamDetails };
+    const gameDetails = { path: "/games/:gameId" };
 
     export const routes: Record<RouteName, AppRoute> = {
         home,
         teamDetails,
-        playerDetails
+        playerDetails,
+        gameDetails
     }
 
     function parseRoutePath(path: string, params?: AppRouteParams): string {

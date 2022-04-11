@@ -26,8 +26,16 @@
   box-shadow: 5px 5px 10px 0px #000000;
   border-radius: 10px;
   box-sizing: border-box;
+  color: white;
   text-decoration: none;
   user-select: none;
+}
+
+.card:hover {
+  transition: 0.5s all;
+  cursor: pointer;
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 5px 5px 20px -2px #000000;
 }
 
 .card > div {

@@ -1,6 +1,38 @@
 html {
   margin: 0;
   height: 100%;
+  --team-1-color: #cb142c;
+  --team-2-color: #fb4c04;
+  --team-3-color: #0434a4;
+  --team-4-color: #fc4414;
+  --team-5-color: #fbbb1c;
+  --team-6-color: #fcbc1c;
+  --team-7-color: #133079;
+  --team-8-color: #a41c2c;
+  --team-9-color: #cb132c;
+  --team-10-color: #3c5484;
+  --team-12-color: #cc142c;
+  --team-13-color: #cb142c;
+  --team-14-color: #0a5ff4;
+  --team-15-color: #cc142c;
+  --team-16-color: #E50026;
+  --team-17-color: #cc142d;
+  --team-18-color: #091A48;
+  --team-19-color: #003287;
+  --team-20-color: #cc142c;
+  --team-21-color: #246494;
+  --team-22-color: #fc4d05;
+  --team-23-color: #3c5484;
+  --team-24-color: #fb4c04;
+  --team-25-color: #037247;
+  --team-26-color: #737d8b;
+  --team-28-color: #04636F;
+  --team-29-color: #cb142c;
+  --team-30-color: #174433;
+  --team-52-color: #a41c2c;
+  --team-53-color: #ac441c;
+  --team-54-color: #bb945c;
+  --team-55-color: #A7D8DE;
 }
 
 body {
