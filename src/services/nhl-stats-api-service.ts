@@ -36,7 +36,7 @@ export default class NHLStatsApiService {
     return NHLScheduleGroupModel.fromDto(result.data);
   }
 
-  async getLiveFeedDetails(gameId: string): Promise<NHLLiveFeedModel> {
+  async getGameDetails(gameId: string): Promise<NHLLiveFeedModel> {
     const result = await axios.get<NHLLiveFeedDto>(`https://statsapi.web.nhl.com/api/v1/game/${gameId}/feed/live`);
     return NHLLiveFeedModel.fromDto(result.data);
   }

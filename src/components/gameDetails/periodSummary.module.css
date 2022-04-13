@@ -1,0 +1,24 @@
+.period-summary {
+    width: 100%;
+    height: fit-content;
+    border: 1px solid #d6d6d638;
+  }
+  
+  .period-summary-header {
+    text-align: center;
+    line-height: 30px;
+    color: #FFF;
+    font-variant: small-caps;
+    font-weight: bold;
+    background: #d6d6d638;
+    height: 30px;
+  }
+  
+  .period-summary-plays {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    gap: 20px;
+  }

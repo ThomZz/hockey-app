@@ -4,39 +4,39 @@ import { NHLLiveFeedModel } from '../../models/live-feed';
 
 import NHLStatsApiService from '../../services/nhl-stats-api-service';
 
-export interface LiveFeedState {
+export interface GameDetailsState {
     liveFeed: NHLLiveFeedModel;
     loading?: boolean;
 }
 
-const initialState: LiveFeedState = {
+const initialState: GameDetailsState = {
     liveFeed: {} as NHLLiveFeedModel,
     loading: false
 }
 
-export const getLiveFeedDetails = createAsyncThunk(
-    'live-feed',
+export const getGameDetails = createAsyncThunk(
+    'game-details',
     async (gameId: string) => {
         const svc = container.resolve(NHLStatsApiService);
-        return await svc.getLiveFeedDetails(gameId);
+        return await svc.getGameDetails(gameId);
     }
 );
 
-export const liveFeedSlice = createSlice({
-    name: 'live-feed',
+export const gameDetailsSlice = createSlice({
+    name: 'game-details',
     initialState,
     reducers: {},
     extraReducers: builder => {
-        builder.addCase(getLiveFeedDetails.fulfilled, (state, action) => {
+        builder.addCase(getGameDetails.fulfilled, (state, action) => {
             state.liveFeed = action.payload;
             state.loading = false;
         })
-        builder.addCase(getLiveFeedDetails.pending, (state) => {
+        builder.addCase(getGameDetails.pending, (state) => {
             state.loading = true;
         })
-        builder.addCase(getLiveFeedDetails.rejected, (state) => {
+        builder.addCase(getGameDetails.rejected, (state) => {
             state.loading = false;
         })
     }
 });
-export default liveFeedSlice.reducer;
+export default gameDetailsSlice.reducer;
