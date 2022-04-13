@@ -37,6 +37,10 @@ const TeamDetailsView: React.FC<{ title: string }> = () => {
         if (shouldFetch) fetch();
     }, []);
 
+    const onSchedulesMoved =(_: any , newIndex: number) => {
+        dispatch(updateCurrentScheduleIndex(newIndex));
+    }
+
     return shouldFetch ? null : (
         <div className={styles.container}>
             <div style={{
@@ -48,7 +52,7 @@ const TeamDetailsView: React.FC<{ title: string }> = () => {
                 <h3>{teamName}</h3>
             </header>
             <div className={sharedStyles.main}>
-                <Schedule startIndex={currentScheduleIndex} loading={loading} dates={schedules.dates} />
+                <Schedule startIndex={currentScheduleIndex} loading={loading} dates={schedules.dates} onMoved={onSchedulesMoved}/>
             </div>
             <div className={styles["roster-container"]}>
                 {roster?.map((rosterMember) => (

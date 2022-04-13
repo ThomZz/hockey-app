@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector, useDocumentTitle } from '../../app/hooks';
 import sharedStyles from "../shared/shared.module.css";
@@ -29,6 +29,10 @@ const GameLiveFeedView: React.FC<{ title: string }> = ({ title }) => {
         }
         if (liveFeed !== {} as any) fetch();
     }, []);
+
+    const onPlayerImgLoadError = (ev: SyntheticEvent<HTMLImageElement, Event>) => {
+        ev.currentTarget.src = `/player.png`;
+    }
 
     const onTabActivated = (tabIdx: number) => {
         setActiveTab(tabIdx);
@@ -78,34 +82,46 @@ const GameLiveFeedView: React.FC<{ title: string }> = ({ title }) => {
             prev.push(play);
             return prev;
         }, []);
+        const scoringPlaysByPeriod = groupBy<NHLLiveFeedPlayModel>(scoringPlays, (p) => p.about.ordinalNum);
         return (<div className={styles.summary}>
-            {scoringPlays.map((p) => {
-                const scorer = p.players.find(p => p.playerType === "Scorer");
-                const assists = p.players.filter(p => p.playerType === "Assist");
-                const scorerTeam = liveFeed.gameData.players[`ID${scorer!.player.id}`].currentTeam;
-                const homeTeam = liveFeed.liveData.boxscore.teams.home.team;
-                const awayTeam = liveFeed.liveData.boxscore.teams.away.team;
-                const isScorerHome = homeTeam.id === scorerTeam.id ? true : false;
-                return (<div className={styles["scoring-summary"]}>
-                    <div className={styles["scoring-summary-card"]}>
-                        <Link style={{ fontSize: "16px" }} to={AppRoutes.resolvePath(AppRoutes.routes.playerDetails, { id: scorerTeam.id, playerId: scorer!.player.id })}>
-                            <img className={sharedStyles["player-img"]} style={{ width: "68px", height: "68px", backgroundImage: 'url("/player-loading.png")' }}
-                                loading="lazy" src={`https://cms.nhl.bamgrid.com/images/headshots/current/168x168/${scorer!.player.id}.jpg`} alt={scorer!.player.fullName} />
-                        </Link>
-                        <div className={styles["scoring-summary-play"]}>
-                            {renderGoalPlay(scorer!, scorerTeam.id)}
-                            {renderAssistPlay(assists)}
-                            <div style={{ borderColor: isScorerHome ? `var(--team-${homeTeam.id}-color)` : `var(--team-${awayTeam.id}-color)` }} className={styles["scoring-summary-play-details"]}>
-                                <div>{p.about.periodTime} / {p.about.ordinalNum}</div>
-                                <div style={{ background: isScorerHome ? `var(--team-${homeTeam.id}-color)` : `var(--team-${awayTeam.id}-color)` }} className={styles["scoring-summary-play-details-score"]}>
-                                    <span style={{ fontWeight: isScorerHome ? "normal" : "bold" }}> {awayTeam.abbreviation} {p.about.goals.away}</span> ,&nbsp;
-                                    <span style={{ fontWeight: isScorerHome ? "bold" : "normal" }}>{homeTeam.abbreviation} {p.about.goals.home}</span>
-                                </div>
-                                {p.result.strength.code !== "EVEN" ? <div>{p.result.strength.code}</div> : null}
-                            </div>
+            {Object.entries(scoringPlaysByPeriod).sort(([a], [b]) => +a - +b).map(([period, plays]) => {
+                return (
+                    <div className={styles["period-summary"]}>
+                        <div className={styles["period-summary-header"]}>{period} period</div>
+                        <div className={styles["period-summary-plays"]}>
+                        {
+                            plays.map(p => {
+                                const scorer = p.players.find(p => p.playerType === "Scorer");
+                                const assists = p.players.filter(p => p.playerType === "Assist");
+                                const scorerTeam = liveFeed.gameData.players[`ID${scorer!.player.id}`].currentTeam;
+                                const homeTeam = liveFeed.liveData.boxscore.teams.home.team;
+                                const awayTeam = liveFeed.liveData.boxscore.teams.away.team;
+                                const isScorerHome = homeTeam.id === scorerTeam.id ? true : false;
+                                return (<div className={styles["scoring-summary"]}>
+                                    <div className={styles["scoring-summary-card"]}>
+                                        <Link style={{ fontSize: "16px" }} to={AppRoutes.resolvePath(AppRoutes.routes.playerDetails, { id: scorerTeam.id, playerId: scorer!.player.id })}>
+                                            <img className={sharedStyles["player-img"]} style={{ width: "68px", height: "68px", backgroundImage: 'url("/player-loading.png")' }}
+                                                loading="lazy" src={`https://cms.nhl.bamgrid.com/images/headshots/current/168x168/${scorer!.player.id}.jpg`} alt={scorer!.player.fullName} onError={onPlayerImgLoadError} />
+                                        </Link>
+                                        <div className={styles["scoring-summary-play"]}>
+                                            {renderGoalPlay(scorer!, scorerTeam.id)}
+                                            {renderAssistPlay(assists)}
+                                            <div style={{ borderColor: isScorerHome ? `var(--team-${homeTeam.id}-color)` : `var(--team-${awayTeam.id}-color)` }} className={styles["scoring-summary-play-details"]}>
+                                                <div>{p.about.periodTime} / {p.about.ordinalNum}</div>
+                                                <div style={{ background: isScorerHome ? `var(--team-${homeTeam.id}-color)` : `var(--team-${awayTeam.id}-color)` }} className={styles["scoring-summary-play-details-score"]}>
+                                                    <span style={{ fontWeight: isScorerHome ? "normal" : "bold" }}> {awayTeam.abbreviation} {p.about.goals.away}</span> ,&nbsp;
+                                                    <span style={{ fontWeight: isScorerHome ? "bold" : "normal" }}>{homeTeam.abbreviation} {p.about.goals.home}</span>
+                                                </div>
+                                                {p.result.strength.code !== "EVEN" ? <div>{p.result.strength.code}</div> : null}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>)
+                            })
+                        }
                         </div>
                     </div>
-                </div>)
+                )
             })}
         </div>);
     }
@@ -122,7 +138,7 @@ const GameLiveFeedView: React.FC<{ title: string }> = ({ title }) => {
 
     const renderAssistPlay = (assists: NHLLiveFeedPlayPlayerModel[]) => {
         return (<div style={{ fontSize: "12px" }}>
-            {assists.map((player, idx)=> {
+            {assists.map((player, idx) => {
                 const playerTeamId = liveFeed.gameData.players[`ID${player.player.id}`].currentTeam.id;
                 return (<Link to={AppRoutes.resolvePath(AppRoutes.routes.playerDetails, { id: playerTeamId, playerId: player.player.id })}>
                     <span>{player.player.fullName} ({player.seasonTotal}){idx < assists.length - 1 ? "," : ""}</span>
@@ -214,7 +230,7 @@ const GameLiveFeedView: React.FC<{ title: string }> = ({ title }) => {
     }
 
     return loading ? <div className={styles["loader-container"]}><div className={sharedStyles.loader}></div></div> : liveFeed.gameData ?
-        <>
+        <main className={styles.container}>
             <header className={sharedStyles.header} style={{ flexDirection: "column" }}>
                 <h3>{DateHelper.toString(new Date(liveFeed.gameData.datetime.dateTime), true)}</h3>
                 <div className={styles.header}>
@@ -229,10 +245,10 @@ const GameLiveFeedView: React.FC<{ title: string }> = ({ title }) => {
                     </Link>
                 </div>
             </header>
-            <div className={styles.container}>
+            <div className={styles["main-content"]}>
                 {renderContent()}
             </div>
-        </> : <></>
+        </main> : <></>
 }
 
 export default GameLiveFeedView;

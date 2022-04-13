@@ -34,11 +34,15 @@ const TeamsView: React.FC<{ title: string }> = ({ title }) => {
         if (!schedules?.dates?.length) fetch();
     }, []);
 
+    const onSchedulesMoved =(_: any , newIndex: number) => {
+        dispatch(updateCurrentScheduleIndex(newIndex));
+    }
+
     return (
         <>
             <div style={{ backgroundSize: "contain", backgroundImage: "url('/nhl-logo.png')" }} className={sharedStyles.background}></div>
             <main className={styles.container}>
-                <Schedule startIndex={currentScheduleIndex} dates={schedules.dates} loading={loading}/>
+                <Schedule startIndex={currentScheduleIndex} dates={schedules.dates} loading={loading} onMoved={onSchedulesMoved}/>
                 <TeamSearchForm></TeamSearchForm>
                 <TeamList teams={teams}></TeamList>
             </main>

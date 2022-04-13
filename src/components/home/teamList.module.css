@@ -22,6 +22,6 @@
   display: grid;
   justify-content: center;
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(270px, min-content));
-  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, min-content));
+  gap: 15px;
 }

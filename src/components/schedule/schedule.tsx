@@ -11,30 +11,33 @@ type Props = {
     dates: NHLScheduleModel[],
     loading?: boolean,
     startIndex?: number;
+    onMoved?: (splide: any,  newIndex: number) => void
 }
 
 const ScheduleGamesMemo = React.memo(ScheduleGames);
 
-const Schedule: React.FC<Props> = ({ dates, loading, startIndex }) => {
+const Schedule: React.FC<Props> = ({ dates, loading, startIndex, onMoved }) => {
 
+    const getSplideCount = () => Math.floor(window.innerWidth / 250);
     const slider = useRef<any>(null);
     const [options, setOptions] = useState<any>({
         height: "180px",
         gap: "15px",
         padding: 5,
         pagination: false,
-        perPage: Math.floor(window.innerWidth / 250),
-        perMove: 4
+        perPage: getSplideCount(),
+        perMove: getSplideCount()
     })
 
     useEffect(() => {
         const handler = throttle(() => {
             if (slider.current) {
                 const { splide } = slider.current;
-                const occ = Math.floor(window.innerWidth / 250);
+                const occ = getSplideCount();
                 if (splide.options.perPage !== occ) {
                     splide.options.perPage = occ;
-                    setOptions({ ...options, perPage: occ });
+                    splide.options.perMove = occ;
+                    setOptions({ ...options, perPage: occ, perMove: occ });
                 }
             }
         }, 200);
@@ -42,7 +45,7 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex }) => {
         return function cleanup(): void {
             window.removeEventListener("resize", handler);
         }
-    }, [])
+    }, [getSplideCount])
 
     useLayoutEffect(() => {
         if (slider.current) {
@@ -56,7 +59,7 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex }) => {
 
     return loading ? <div className={styles["loader-container"]}><div className={sharedStyles.loader}></div></div> : (
         <div className={styles["slider-container"]}>
-            <Splide className={styles.slider} ref={slider} options={options}>
+            <Splide className={styles.slider} ref={slider} options={options} onMoved={onMoved}>
                 {dates?.map((d, idx) => {
                     return (
                         <ScheduleGamesMemo key={`${d.date}-${idx}`} games={d.games} />
