@@ -17,7 +17,7 @@ const Header: React.FC<{}> = () => {
 
     return (
         <div className={styles.header}>
-            <img onClick={handleLogoClick} alt="" width="80px" height="40px" src="/banner.png" />
+            <img onClick={handleLogoClick} alt="" width="52px" height="52px" src="/logo.png" />
             <h2 onClick={handleLogoClick}>ThomZz Hockey App</h2>
         </div>
     );
