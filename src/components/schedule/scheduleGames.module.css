@@ -34,9 +34,8 @@
 }
 
 .card:hover {
-  transition: 0.5s all;
   cursor: pointer;
-  transform: translateY(-1px) translateX(-1px);
+  background-color:#000000af;
 }
 
 .card > div {
