@@ -28,7 +28,7 @@ const TeamsView: React.FC<{ title: string }> = ({ title }) => {
                 endDate: DateHelper.toString(to)
             }))
             if (payload) {
-                dispatch(updateCurrentScheduleIndex(NHLScheduleGroupModel.FindNearestGameIndex(payload as NHLScheduleGroupModel)));
+                dispatch(updateCurrentScheduleIndex(NHLScheduleGroupModel.FindNearestGameIndex(payload as NHLScheduleGroupModel) + 2));
             }
         }
         if (!schedules?.dates?.length) fetch();

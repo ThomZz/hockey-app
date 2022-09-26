@@ -22,9 +22,11 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex, onMoved }) => {
     const slider = useRef<any>(null);
     const [options, setOptions] = useState<any>({
         height: "180px",
-        gap: "15px",
-        padding: 5,
+        gap: "2px",
+        autoWidth: true,
+        padding:  { left: 2, right: 2 },
         pagination: false,
+        trimSpace: false,
         perPage: getSplideCount(),
         perMove: getSplideCount()
     })

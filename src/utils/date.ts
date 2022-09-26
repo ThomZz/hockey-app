@@ -13,6 +13,10 @@ export namespace DateHelper {
         return date.toLocaleDateString("en-CA", { month: "long", day: "numeric" });
     }
 
+    export function toAbbrevShortString(date: Date): string {
+        return date.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
+    }
+
     export function addDays(date: Date, days: number): Date {
         var result = new Date(date);
         result.setDate(result.getDate() + days);

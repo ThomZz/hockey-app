@@ -34,18 +34,18 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
     }
 
     const dateHeader = (previousDate: string, currentDate: string) => {
-        const today = DateHelper.toShortString(DateHelper.today());
-        const previous = DateHelper.toShortString(new Date(previousDate));
-        const current = DateHelper.toShortString(new Date(currentDate));
+        const previous = DateHelper.toAbbrevShortString(new Date(previousDate));
+        const current = DateHelper.toAbbrevShortString(new Date(currentDate));
         if (previous !== current) {
-            const isToday = current === today;
             return (
-                <div className={isToday ? styles["today-header"] : styles["date-header"]}>
-                    {isToday ? `${current} (today)` : current}
-                </div>
+                <SplideSlide>
+                    <div className={styles["date-card"]}>
+                        {current}
+                    </div>
+                </SplideSlide>
             )
         }
-        return (<div></div>);
+        return;
     }
 
     const gameState = (status: NHLGameStatusModel, linescore: NHLGameLineScoreModel) => {
@@ -61,18 +61,20 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
         <>
             {games?.map((game, idx, allGames) => {
                 return (
-                    <SplideSlide key={`${game.gameDate}-${idx}`}>
-                        <div className={styles.container}>
-                            {dateHeader(allGames[idx - 1]?.gameDate, game.gameDate)}
-                            <Link className={styles.card} to={AppRoutes.resolvePath(AppRoutes.routes.gameDetails, { gameId: game.gamePk })}>
-                                <span className={styles.date}>{DateHelper.toString(new Date(game.gameDate), true)}</span>
-                                <hr className={styles.separator}></hr>
-                                {gameState(game.status, game.linescore)}
-                                {renderScore(game.results?.home, game.results?.away, game.linescore?.results?.home, game)}
-                                {renderScore(game.results?.away, game.results?.home, game.linescore?.results?.away, game)}
-                            </Link>
-                        </div>
-                    </SplideSlide>
+                    <>
+                        {dateHeader(allGames[idx - 1]?.gameDate, game.gameDate)}
+                        <SplideSlide key={`${game.gameDate}-${idx}`}>
+                            <div className={styles.container}>
+                                <Link className={styles.card} to={AppRoutes.resolvePath(AppRoutes.routes.gameDetails, { gameId: game.gamePk })}>
+                                    <span className={styles.date}>{DateHelper.toString(new Date(game.gameDate), true)}</span>
+                                    <hr className={styles.separator}></hr>
+                                    {gameState(game.status, game.linescore)}
+                                    {renderScore(game.results?.home, game.results?.away, game.linescore?.results?.home, game)}
+                                    {renderScore(game.results?.away, game.results?.home, game.linescore?.results?.away, game)}
+                                </Link>
+                            </div>
+                        </SplideSlide>
+                    </>
                 )
             })}
         </>
