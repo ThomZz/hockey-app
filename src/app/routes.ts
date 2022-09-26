@@ -22,7 +22,7 @@ export namespace AppRoutes {
 
     function parseRoutePath(path: string, params?: AppRouteParams): string {
         for (const key in params) {
-            path = path.replace(`:${key}`, params[key].toString());
+            path = path.replace(`:${key}`, params[key]?.toString());
         }
         return path;
     }
