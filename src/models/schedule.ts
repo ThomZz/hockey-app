@@ -30,7 +30,7 @@ export namespace NHLScheduleGroupModel {
                 dates.every((s) => {
                     if (s.date === dateStr) return false;
                     else {
-                        idx += s.games?.length ?? 0;
+                        idx += (s.games?.length ?? 0) + 1;
                         return true;
                     }
                 });
