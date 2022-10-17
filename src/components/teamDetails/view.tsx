@@ -25,7 +25,7 @@ const TeamDetailsView: React.FC<{ title: string }> = () => {
         const fetch = async () => {
             dispatch(getTeamsDetails(tId));
             const today = new Date();
-            const to = DateHelper.addDays(today, 7);
+            const to = DateHelper.addDays(today, 21);
             const from = DateHelper.since(today, 21);
             const { payload } = await dispatch(getTeamSchedule({
                 id: tId,

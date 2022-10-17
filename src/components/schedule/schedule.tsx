@@ -23,6 +23,7 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex, onMoved }) => {
     const [options, setOptions] = useState<any>({
         height: "180px",
         gap: "2px",
+        speed: 1500,
         autoWidth: true,
         padding:  { left: 2, right: 2 },
         pagination: false,
