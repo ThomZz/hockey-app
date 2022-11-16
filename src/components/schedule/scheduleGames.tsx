@@ -38,7 +38,7 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
         const current = DateHelper.toAbbrevShortString(new Date(currentDate));
         if (previous !== current) {
             return (
-                <SplideSlide>
+                <SplideSlide  key={current}>
                     <div className={styles["date-card"]}>
                         {current}
                     </div>
