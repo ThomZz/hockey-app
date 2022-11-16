@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from "./gameTeamsDetails.module.css"
-import { NHLLiveFeedGameDataModel } from '../../models/live-feed';
+import { NHLLiveFeedGameDataModel, NHLLiveFeedLiveDataModel } from '../../models/live-feed';
 import { DateHelper } from '../../utils/date';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 
 type Props = {
     gameData: NHLLiveFeedGameDataModel,
+    liveData: NHLLiveFeedLiveDataModel
 }
-const GameTeamsDetails: React.FC<Props> = ({ gameData }) => {
+const GameTeamsDetails: React.FC<Props> = ({ gameData, liveData }) => {
     return (
         <>
             <h3>{DateHelper.toString(new Date(gameData.datetime.dateTime), true)}</h3>

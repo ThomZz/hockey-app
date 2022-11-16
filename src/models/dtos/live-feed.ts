@@ -135,3 +135,25 @@ export type NHLLiveFeedPlayPlayerDto = {
     playerType: string;
     seasonTotal: string;
 }
+
+export type NHLLiveFeedLineScoreResultDetailsDto= {
+    readonly goaliePulled: boolean;
+    readonly goals: number;
+    readonly numSkaters: number;
+    readonly powerPlay: boolean;
+    readonly shotsOnGoal: number;
+    readonly team: NHLTeamDto;
+}
+
+export type NHLLiveFeedLineScoreResultDto = {
+    readonly away: NHLLiveFeedLineScoreResultDetailsDto
+    readonly home: NHLLiveFeedLineScoreResultDetailsDto;
+}
+
+export type NHLLiveFeedLineScoreDto = {
+    readonly currentPeriod: number;
+    readonly currentPeriodOrdinal: string;
+    readonly currentPeriodTimeRemaining: string;
+    readonly hasShootout: boolean;
+    readonly teams: NHLLiveFeedLineScoreResultDto
+}

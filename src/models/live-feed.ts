@@ -1,4 +1,4 @@
-import { NHLLiveFeedBoxscoreDto, NHLLiveFeedBoxscoreGoalieStatsDto, NHLLiveFeedBoxscorePlayerDto, NHLLiveFeedBoxscorePlayerStatsDto, NHLLiveFeedBoxscoreSkaterStatsDto, NHLLiveFeedBoxscoreTeamDto, NHLLiveFeedBoxscoreTeamsDto, NHLLiveFeedDto, NHLLiveFeedGameDataDto, NHLLiveFeedLiveDataDto, NHLLiveFeedPlayDetailsDto, NHLLiveFeedPlayDto, NHLLiveFeedPlayersDto, NHLLiveFeedPlayPlayerDto, NHLLiveFeedPlayResultDto, NHLLiveFeedPlaysDto, NHLLiveFeedTeamsDto } from "./dtos/live-feed";
+import { NHLLiveFeedBoxscoreDto, NHLLiveFeedBoxscoreGoalieStatsDto, NHLLiveFeedBoxscorePlayerDto, NHLLiveFeedBoxscorePlayerStatsDto, NHLLiveFeedBoxscoreSkaterStatsDto, NHLLiveFeedBoxscoreTeamDto, NHLLiveFeedBoxscoreTeamsDto, NHLLiveFeedDto, NHLLiveFeedGameDataDto, NHLLiveFeedLineScoreDto, NHLLiveFeedLineScoreResultDetailsDto, NHLLiveFeedLineScoreResultDto, NHLLiveFeedLiveDataDto, NHLLiveFeedPlayDetailsDto, NHLLiveFeedPlayDto, NHLLiveFeedPlayersDto, NHLLiveFeedPlayPlayerDto, NHLLiveFeedPlayResultDto, NHLLiveFeedPlaysDto, NHLLiveFeedTeamsDto } from "./dtos/live-feed";
 import { NHLPlayerModel, NHLPlayerPositionModel } from "./player";
 import { NHLGameStatusModel } from "./schedule";
 import { NHLTeamModel } from "./team";
@@ -66,7 +66,7 @@ export namespace NHLLiveFeedPlayersModel {
 
 export type NHLLiveFeedLiveDataModel = {
     boxscore: NHLLiveFeedBoxscoreModel;
-    linescore: NHLLiveFeedBoxscoreModel;
+    linescore: NHLLiveFeedLineScoreModel;
     plays: NHLLiveFeedPlaysModel;
 }
 
@@ -311,3 +311,51 @@ export namespace NHLLiveFeedPlayPlayerModel {
     }
 }
 
+export type NHLLiveFeedLineScoreResultModel = {
+    readonly away: NHLLiveFeedLineScoreResultDetailsModel;
+    readonly home: NHLLiveFeedLineScoreResultDetailsModel;
+}
+
+export namespace NHLLiveFeedLineScoreResultModel {
+    export function fromDto(dto: NHLLiveFeedLineScoreResultDto): NHLLiveFeedLineScoreResultModel {
+        return {
+            away: NHLLiveFeedLineScoreResultDetailsModel.fromDto(dto.away),
+            home: NHLLiveFeedLineScoreResultDetailsModel.fromDto(dto.home)
+        };
+    }
+}
+
+export type NHLLiveFeedLineScoreResultDetailsModel = {
+    readonly goaliePulled: boolean;
+    readonly goals: number;
+    readonly numSkaters: number;
+    readonly powerPlay: boolean;
+    readonly shotsOnGoal: number;
+    readonly team: NHLTeamModel;
+}
+
+export namespace NHLLiveFeedLineScoreResultDetailsModel {
+    export function fromDto(dto: NHLLiveFeedLineScoreResultDetailsDto): NHLLiveFeedLineScoreResultDetailsModel {
+        return {
+            ...dto,
+            team: NHLTeamModel.fromDto(dto.team)
+        };
+    }
+}
+
+export type NHLLiveFeedLineScoreModel = {
+    readonly currentPeriod: number;
+    readonly currentPeriodOrdinal: string;
+    readonly currentPeriodTimeRemaining: string;
+    readonly hasShootout: boolean;
+    readonly teams: NHLLiveFeedLineScoreResultModel;
+}
+
+export namespace NHLLiveFeedLineScoreModel {
+    export function fromDto(dto: NHLLiveFeedLineScoreDto): NHLLiveFeedLineScoreModel {
+        return {
+            ...dto,
+            teams: NHLLiveFeedLineScoreResultModel.fromDto(dto.teams)
+        };
+    }
+}

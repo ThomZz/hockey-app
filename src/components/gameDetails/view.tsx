@@ -74,7 +74,7 @@ const GameDetailsView: React.FC<{ title: string }> = ({ title }) => {
     return loading ? <div className={styles["loader-container"]}><div className={sharedStyles.loader}></div></div> : liveFeed.gameData ?
         <main className={styles.container}>
             <header className={sharedStyles.header} style={{ flexDirection: "column" }}>
-                <GameTeamsDetails gameData={liveFeed.gameData} />
+                <GameTeamsDetails gameData={liveFeed.gameData} liveData={liveFeed.liveData}/>
             </header>
             <div className={styles["main-content"]}>
                 {renderContent()}
