@@ -9,6 +9,11 @@ const PlayerCard: React.FC<{ player: NHLPlayerModel }> = ({ player }) => {
         ev.currentTarget.src = `/player.png`;
     }
 
+    const calculateAge = (date: string ) => {
+        var birthday = +new Date(date);
+        return ~~((Date.now() - birthday) / (31557600000));
+      }
+
     return (
         <div className={styles.card}>
             <div>
@@ -25,7 +30,7 @@ const PlayerCard: React.FC<{ player: NHLPlayerModel }> = ({ player }) => {
                     </tr>
                     <tr>
                         <td>Birth Date</td>
-                        <td>{player.birthDate} ({player.currentAge} years old)</td>
+                        <td>{player.birthDate} ({player.currentAge ?? calculateAge(player.birthDate)} years ago)</td>
                     </tr>
                     <tr>
                         <td>Birth Place</td>

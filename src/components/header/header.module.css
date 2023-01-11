@@ -2,17 +2,28 @@
   color: white;
   height: 50px;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
-.header > h2 {
-  margin-left: 10px;
+.header > div {
+  height: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
-.header > img,
-.header > h3 {
+.header  > div img,
+.header > div  h3 {
   cursor: pointer;
 }
+
+@media screen and (max-width: 500px) {
+  .app-title {
+    width: 30px;
+    font-size: 12px;
+  }
+} 

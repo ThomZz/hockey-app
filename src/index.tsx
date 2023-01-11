@@ -9,9 +9,11 @@ import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 import store from './app/store';
 import { Provider } from 'react-redux';
+import NHLSuggestApiService from "./services/nhl-suggest-api-service";
 
 container.register<Logger>(Logger, { useClass: Logger });
 container.register<NHLStatsApiService>(NHLStatsApiService, { useClass: NHLStatsApiService });
+container.register<NHLSuggestApiService>(NHLSuggestApiService, { useClass: NHLSuggestApiService });
 
 ReactDOM.render(
   <React.StrictMode>

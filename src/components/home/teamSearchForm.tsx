@@ -1,9 +1,9 @@
 
 import debounce from 'lodash.debounce';
-import React, { FormEvent, useLayoutEffect } from 'react';
+import React, { FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { updateFilter } from '../../features/team/slice';
-import styles from "./teamSearchForm.module.css";
+import sharedStyles from "../shared/shared.module.css";
 
 const TeamSearchForm: React.FC<{}> = () => {
     const dispatch = useAppDispatch();
@@ -14,13 +14,9 @@ const TeamSearchForm: React.FC<{}> = () => {
         dispatch(updateFilter((e.target as HTMLInputElement).value))
     }, 200);
 
-    useLayoutEffect(() => {
-        document.getElementById("search")?.focus();
-    })
-
     return (
         <form>
-            <input id="search" className={styles.input} onChange={handleChange} defaultValue={filter} type="text"/>
+            <input placeholder="Filter teams ..." id="search" className={sharedStyles.input} onChange={handleChange} defaultValue={filter} type="text"/>
         </form>
     );
 }

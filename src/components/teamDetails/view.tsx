@@ -14,7 +14,7 @@ import { NHLScheduleGroupModel } from '../../models/schedule';
 const TeamDetailsView: React.FC<{ title: string }> = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
-    const tId = parseInt(id);
+    const tId = parseInt(String(id!));
     const { roster, name: teamName, id: teamId } = useAppSelector(state => state.teamDetails);
     const { schedules, currentScheduleIndex, loading } = useAppSelector(state => state.teamSchedule);
 

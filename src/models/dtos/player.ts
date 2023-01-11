@@ -1,3 +1,5 @@
+import { NHLTeamDto } from "./team"
+
 export type NHLPeopleDto = {
     readonly people: NHLPlayerDto[];
 }
@@ -23,7 +25,8 @@ export type NHLPlayerDto = {
     readonly rookie: boolean,
     readonly shootsCatches: string,
     readonly rosterStatus: string,
-    readonly primaryPosition: NHLPlayerPositionDto
+    readonly primaryPosition: NHLPlayerPositionDto;
+    readonly currentTeam: Pick<NHLTeamDto, "name" | "id">
 }
 
 export type NHLPlayerPositionDto = {
@@ -31,4 +34,22 @@ export type NHLPlayerPositionDto = {
     readonly code: string,
     readonly name: string
     readonly type: string
+}
+
+export type NHlPlayerSearchDto = {
+    readonly id: number;
+    readonly lastName: string,
+    readonly firstName: string,
+    readonly isActive: boolean,
+    readonly unknownFlag: boolean,
+    readonly height: string,
+    readonly weight: number,
+    readonly birthPlace: string,
+    readonly birthStateProvince: string,
+    readonly birthCountry: string,
+    readonly birthDate: string,
+    readonly currentTeamAbb: string,
+    readonly primaryPosition: string,
+    readonly primaryNumber: number,
+    readonly playerSlug: string;
 }

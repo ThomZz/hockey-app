@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import sharedStyles from "../shared/shared.module.css";
 import PlayerStats from './playerStats';
@@ -6,31 +6,44 @@ import PlayerCard from './playerCard';
 import { useAppDispatch, useAppSelector, useDocumentTitle } from '../../app/hooks';
 import styles from "./view.module.css";
 import { getPlayerDetails, getPlayerStats } from '../../features/playerDetails/slice';
+import { NHLPlayerModel } from '../../models/player';
 
 const PlayerDetailsView: React.FC<{ title: string }> = () => {
     const { player, stats } = useAppSelector(state => state.playerDetails);
     useDocumentTitle(player.fullName);
 
-    const { playerId, id: teamId } = useParams<any>();
-    const pId = parseInt(playerId);
+    const { playerId } = useParams<any>();
+    const [playerTeamId, setPlayerTeamId] = useState(player ? player.currentTeam?.id : undefined);
+
+    const pId = parseInt(String(playerId));
 
     const dispatch = useAppDispatch();
     const shouldFetch = !player?.id || pId !== player.id;
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        if (shouldFetch) {
-            dispatch(getPlayerDetails(playerId));
-            dispatch(getPlayerStats(playerId));
+        const fetch = async () => {
+            const { payload } = await dispatch(getPlayerDetails(pId));
+            setPlayerTeamId((payload as NHLPlayerModel).currentTeam?.id)
+            dispatch(getPlayerStats(pId));
         }
-    }, [dispatch, shouldFetch, playerId]);
+        if (shouldFetch) fetch();
+    }, [dispatch, shouldFetch]);
+
+    const renderBackground = (teamId?: number) => {
+        if (teamId) {
+            return (
+                <div style={{
+                    backgroundImage: `url("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${teamId}.svg")`,
+                }} className={sharedStyles.background}></div>
+            )
+        }
+        return;
+    }
 
     return shouldFetch ? null : (
         <>
-            <div style={{
-                backgroundImage: `url("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${teamId}.svg")`,
-            }} className={sharedStyles.background}>
-            </div>
+            {renderBackground(playerTeamId)}
             <main className={sharedStyles.main}>
                 <div className={styles.container}>
                     <PlayerCard player={player} />

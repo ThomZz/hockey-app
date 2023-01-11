@@ -23,7 +23,7 @@ const GameDetailsView: React.FC<{ title: string }> = ({ title }) => {
 
     useEffect(() => {
         const fetch = async () => {
-            const { payload } = await dispatch(getGameDetails(gameId));
+            const { payload } = await dispatch(getGameDetails(String(gameId)));
             const { gameData: { teams } } = payload as NHLLiveFeedModel;
             setTitles(["Summary", teams.away.name, teams.home.name]);
         }

@@ -5,10 +5,12 @@ import playerDetailsReducer from '../features/playerDetails/slice';
 import teamScheduleReducer from '../features/teamSchedule/slice';
 import scheduleReducer from '../features/schedule/slice';
 import liveFeedReducer from '../features/gameDetails/slice';
+import playerSearchReducer from '../features/playerSearch/slice';
 
 const store = configureStore({
     reducer: {
         team: teamReducer,
+        playerSearch: playerSearchReducer,
         teamDetails: teamDetailsReducer,
         playerDetails: playerDetailsReducer,
         teamSchedule: teamScheduleReducer,

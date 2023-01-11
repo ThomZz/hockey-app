@@ -2,6 +2,7 @@ import React from 'react';
 import { GoalieStatDetailsModel, StatsSplitDetailsModel } from '../../models/stats';
 
 import styles from "./playerStats.module.css";
+import sharedStyles from "../shared/shared.module.css";
 
 const GoalieStats: React.FC<{ splits: StatsSplitDetailsModel<GoalieStatDetailsModel>[], summary: GoalieStatDetailsModel }> = ({ splits, summary }) => {
 
@@ -29,7 +30,7 @@ const GoalieStats: React.FC<{ splits: StatsSplitDetailsModel<GoalieStatDetailsMo
     }
 
     return (
-        <table style={{ textAlign: "center" }} className={styles.table} cellSpacing="0" cellPadding="0">
+        <table style={{ textAlign: "center" }} className={sharedStyles.table} cellSpacing="0" cellPadding="0">
             <thead>
                 <tr>
                     <th>Season</th>
