@@ -30,7 +30,7 @@ const GoalieStats: React.FC<{ splits: StatsSplitDetailsModel<GoalieStatDetailsMo
     }
 
     return (
-        <table style={{ textAlign: "center" }} className={sharedStyles.table} cellSpacing="0" cellPadding="0">
+        <table style={{ textAlign: "center" }} className={`${sharedStyles.table} ${styles.table}`} cellSpacing="0" cellPadding="0">
             <thead>
                 <tr>
                     <th>Season</th>

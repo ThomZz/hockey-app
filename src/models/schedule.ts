@@ -19,23 +19,13 @@ export namespace NHLScheduleGroupModel {
         }
     }
 
-    export function FindNearestGameIndex({ dates }: NHLScheduleGroupModel): number {
-        const today = DateHelper.today();
-        const dts = dates.map(d => new Date(`${d.date}:`));
-        if (dts?.length) {
-            const closest = DateHelper.closest(today, dts);
-            if (closest) {
-                const dateStr = DateHelper.toString(closest);
-                let idx = 0;
-                dates.every((s) => {
-                    if (s.date === dateStr) return false;
-                    else {
-                        idx += (s.games?.length ?? 0) + 1;
-                        return true;
-                    }
-                });
-                return idx;
-            }
+    export function FindNearestGameIndex({ dates: schedules  }: NHLScheduleGroupModel): number {
+        if (schedules?.length) {
+                const today = DateHelper.today();
+                const closest =  DateHelper.closest(today,  schedules, (i) => new Date(i.timestamp));
+                return schedules.reduce((prev, curr) => {
+                    return curr.timestamp < closest.getTime() ? prev += (curr.games?.length ?? 0)  + 1 : prev;
+                }, 0);
         }
         return 0;
     }
@@ -43,6 +33,7 @@ export namespace NHLScheduleGroupModel {
 
 export type NHLScheduleModel = {
     readonly date: string;
+    readonly timestamp: number;
     readonly games: NHLGameModel[];
     readonly totalEvents: number;
     readonly totalGames: number;
@@ -54,6 +45,7 @@ export namespace NHLScheduleModel {
     export function fromDto(dto: NHLScheduleDto): NHLScheduleModel {
         return {
             ...dto,
+            timestamp: new Date(dto.date).getTime(),
             games: [...NHLGameModel.fromDtos(dto.games)]
         };
     }

@@ -23,10 +23,6 @@
     text-align: left;
   }
   
-  .table > tbody > tr:last-child {
-    background-color: inherit;
-  }
-  
   @media screen and (max-width: 650px) {
     .table {
       display: block;

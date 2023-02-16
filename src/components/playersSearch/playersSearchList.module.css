@@ -3,11 +3,11 @@
     margin-top: 30px;
 }
 
-.table tr {
+.table tbody tr {
     cursor: pointer;
 }
 
-.table tr:hover, .table tr:hover > td {
+.table tbody tr:hover, .table tbody tr:hover > td {
     background-color: rgba(85, 84, 84, 0.622) !important;
 }
 
@@ -24,12 +24,6 @@
 
 .playerImgColumn > img {
     border-radius: 50%;
-}
-
-@media screen and (min-width: 1300px) {
-    .table {
-      width: 60vw;
-    }
 }
 
   @media screen and (max-width: 600px) {

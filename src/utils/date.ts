@@ -28,19 +28,23 @@ export namespace DateHelper {
         return new Date(now.getFullYear(), now.getMonth(), now.getDate());
     }
 
-    export function closest(needle: Date, haystack: Date[]): Date | undefined {
-        return haystack.reduce((prev, curr) => {
-            const nTime = needle.getTime();
-            const prevTime = prev.getTime();
-            const currTime = curr.getTime();
+    export function closest(from: Date, dates: Date[]): Date
+    export function closest<T = any>(from: Date, items:  T[], predicate: (i: T) => Date): Date
+    export function closest<T = any>(from: Date, items: (Date | T)[], predicate?: (i: T) => Date): Date  {
+        return items.reduce((prev, curr) => {
+            const current = curr instanceof Date ? curr : predicate!(curr as T);
+            let previous = prev instanceof Date ? prev : predicate!(prev as T);
+
+            const nTime = from.getTime();
+            const prevTime = previous.getTime();
+            const currTime = current.getTime();
             let prevDiff = Math.abs(prevTime - nTime);
             let currDiff = Math.abs(currTime - nTime);
 
             if (prevDiff === currDiff) {
-                return prev > curr ? prev : curr;
-            } else {
-                return currDiff < prevDiff ? curr : prev;
-            }
-        });
+                return prev > current ? prev : current;
+            } 
+            return currDiff < prevDiff ? current : previous;
+        }) as Date;
     }
 }

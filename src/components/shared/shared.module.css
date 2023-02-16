@@ -59,7 +59,7 @@
   .container {
     width: 60vw;
   }
-  .table {
+  .table[data-table-type="plain"] {
     width: 60vw;
   }
 }
@@ -97,10 +97,6 @@
 
 .table > tbody > tr td:first-child {
   background-color:#464646;
-}
-
-.table:not([data-table-type="plain"]) > tbody > tr:last-child {
-  background-color: #464646;
 }
 
 @keyframes spin {
