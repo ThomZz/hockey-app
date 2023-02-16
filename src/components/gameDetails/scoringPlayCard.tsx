@@ -46,6 +46,9 @@ const ScoringPlayCard: React.FC<Props> = ({ play, liveFeed }) => {
 
     return (
         <div className={styles["scoring-summary"]}>
+        <div style={{
+            backgroundImage: `url("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${scorerTeam.id}.svg")`
+        }} className={`${sharedStyles.background} ${styles["scoring-summary-background"]}`}></div>
             <div className={styles["scoring-summary-card"]}>
                 <Link style={{ fontSize: "16px" }} to={AppRoutes.resolvePath(AppRoutes.routes.playerDetails, { id: scorerTeam.id, playerId: scorer!.player.id })}>
                     <img className={sharedStyles["player-img"]} style={{ width: "68px", height: "68px", backgroundImage: 'url("/player-loading.png")' }}
