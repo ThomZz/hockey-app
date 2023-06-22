@@ -34,7 +34,7 @@ const TeamsView: React.FC<{ title: string }> = ({ title }) => {
         if (!schedules?.dates?.length) fetch();
     }, []);
 
-    const onSchedulesMoved =(_: any , newIndex: number) => {
+    const onSchedulesMoved = (_: any , newIndex: number) => {
         dispatch(updateCurrentScheduleIndex(newIndex));
     }
 

@@ -46,7 +46,7 @@ const PlayersSearchView: React.FC<{ title: string }> = ({ title }) => {
                     <div className={sharedStyles.loader}></div> : (
                         players.length ? 
                         <PlayersSearchList players={players} /> : (
-                            <div className={styles["no-results"]}>No NHL  players found</div>
+                            <div className={sharedStyles["no-results"]}>No NHL  players found</div>
                         )
                     )}</div>
         </>

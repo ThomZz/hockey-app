@@ -5,10 +5,3 @@
     align-items: center;
     justify-content: center;
 }
-
-.no-results {
-    font-style: italic;
-    font-size: 18px;
-    font-weight: bold;
-    color: #d3d3d388;
-}

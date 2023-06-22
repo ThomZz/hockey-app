@@ -92,15 +92,24 @@ const Schedule: React.FC<Props> = ({ dates, loading, startIndex, onMoved }) => {
         }
     };
 
-    return loading ? <div className={styles["loader-container"]}><div className={sharedStyles.loader}></div></div> : (
-        <div className={styles["slider-container"]}>
-            <Splide className={styles.slider} ref={slider} options={options} onMoved={onMoved} onDragged={onDragEnd} onDrag={onDragStart} >
+    const renderScheduledGames = () => {
+        if (dates?.length) {
+            return (
+                <Splide className={styles.slider} ref={slider} options={options} onMoved={onMoved} onDragged={onDragEnd} onDrag={onDragStart} >
                 {dates?.map((d, idx) => {
                     return (
                         <ScheduleGamesMemo key={`${d.date}-${idx}`} games={d.games} />
                     )
                 })}
-            </Splide>
+                </Splide>
+            )
+        }
+        return <div className={`${styles['no-scheduled-games']} ${sharedStyles['no-results']}`}>No recent or upcoming games to show</div>
+    }
+
+    return loading ? <div className={styles["loader-container"]}><div className={sharedStyles.loader}></div></div> : (
+        <div className={styles["slider-container"]}>
+            {renderScheduledGames()}
         </div>
     );
 }

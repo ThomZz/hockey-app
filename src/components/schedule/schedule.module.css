@@ -3,6 +3,14 @@
   height: 200px;
 }
 
+.no-scheduled-games {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
 .slider-container svg {
   fill: #ffffff41;
 }
