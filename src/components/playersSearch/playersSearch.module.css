@@ -1,0 +1,12 @@
+.form {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.form > input {
+    width: 150px;
+}
+
+.form > button:not(:disabled):hover {
+    background-color: rgba(85, 84, 84, 0.622);
+}
