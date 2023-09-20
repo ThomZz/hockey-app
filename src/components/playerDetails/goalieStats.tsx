@@ -14,15 +14,15 @@ const GoalieStats: React.FC<{ splits: StatsSplitDetailsModel<GoalieStatDetailsMo
                 <td>&nbsp;</td>
                 <td>{summary.games}</td>
                 <td>{summary.gamesStarted}</td>
-                <td>{summary.wins}</td>
+                <td className={styles["points-column"]}>{summary.wins}</td>
                 <td>{summary.losses}</td>
                 <td>{summary.ties}</td>
                 <td>{summary.ot}</td>
                 <td>{summary.shotsAgainst}</td>
                 <td>{summary.goalsAgainst}</td>
-                <td>{(summary.goalsAgainst / summary.games).toPrecision(3)}</td>
+                <td>{summary.goalsAgainst && summary.games ? (summary.goalsAgainst / summary.games).toPrecision(3) : ""}</td>
                 <td>{summary.saves}</td>
-                <td>{(summary.saves / summary.shotsAgainst).toPrecision(3)}</td>
+                <td>{summary.saves && summary.shotsAgainst ? (summary.saves / summary.shotsAgainst).toPrecision(3) : ""}</td>
                 <td>{summary.shutouts}</td>
                 <td>&nbsp;</td>
             </tr>
@@ -38,7 +38,7 @@ const GoalieStats: React.FC<{ splits: StatsSplitDetailsModel<GoalieStatDetailsMo
                     <th>League</th>
                     <th>GP</th>
                     <th>GS</th>
-                    <th>W</th>
+                    <th className={styles["points-column"]}>W</th>
                     <th>L</th>
                     <th>T</th>
                     <th>OT</th>
@@ -54,13 +54,13 @@ const GoalieStats: React.FC<{ splits: StatsSplitDetailsModel<GoalieStatDetailsMo
             <tbody>
                 {splits?.map(({ season, league, team, stat, isNHL }) => {
                     return (
-                        <tr key={`${league.name}-${season}`}>
-                            <td className={isNHL ? styles["nhl-row"] : ""}>{season}</td>
+                        <tr className={isNHL ? styles["nhl-row"] : ""} key={`${league.name}-${season}`}>
+                            <td>{season}</td>
                             <td>{team.name}</td>
                             <td>{league.name}</td>
                             <td>{stat.games ?? "-"}</td>
                             <td>{stat.gamesStarted ?? "-"}</td>
-                            <td>{stat.wins ?? "-"}</td>
+                            <td className={styles["points-column"]}>{stat.wins ?? "-"}</td>
                             <td>{stat.losses ?? "-"}</td>
                             <td>{stat.ties ?? "-"}</td>
                             <td>{stat.ot ?? "-"}</td>

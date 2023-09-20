@@ -20,12 +20,21 @@
   background-color: #464646;
 }
 
+.table > tbody > tr:not(.nhl-row) > td {
+    color: rgba(186, 186, 186, 0.838);
+}
+
+.table > tbody > tr.nhl-row > td, .table > tbody > tr:last-child > td {
+  color: white;
+  font-weight: bold;
+}
+
 @media screen and (min-width: 1300px) {
   .container {
     width: 60vw;
   }
 }
 
-.nhl-row {
-  box-shadow: inset 5px 0px 0px 0px #da700e;
+.points-column {
+  background-color: #a756047c;
 }

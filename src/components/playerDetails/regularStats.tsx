@@ -16,7 +16,7 @@ const RegularStats: React.FC<{ splits: StatsSplitDetailsModel<PlayerStatDetailsM
                 <td>{summary.games}</td>
                 <td>{summary.goals}</td>
                 <td>{summary.assists}</td>
-                <td>{summary.points}</td>
+                <td className={styles[(summary.points ?? 0) > 0 ? "points-column" : ""]} >{summary.points}</td>
                 <td>{summary.plusMinus}</td>
                 <td>{summary.pim}</td>
             </tr>
@@ -33,7 +33,7 @@ const RegularStats: React.FC<{ splits: StatsSplitDetailsModel<PlayerStatDetailsM
                     <th>GP</th>
                     <th>G</th>
                     <th>A</th>
-                    <th>Pts</th>
+                    <th className={styles["points-column"]}>Pts</th>
                     <th>+/-</th>
                     <th>PIM</th>
                 </tr>
@@ -41,14 +41,14 @@ const RegularStats: React.FC<{ splits: StatsSplitDetailsModel<PlayerStatDetailsM
             <tbody>
                 {splits?.map(({ league, team, season, stat, isNHL }) => {
                     return (
-                        <tr key={`${league.name}-${season}-${team.name}`}>
-                            <td className={isNHL ? styles["nhl-row"] : ""}>{season}</td>
+                        <tr className={isNHL ? styles["nhl-row"] : ""} key={`${league.name}-${season}-${team.name}`}>
+                            <td>{season}</td>
                             <td>{team.name}</td>
                             <td>{league.name}</td>
                             <td>{stat.games ?? "-"}</td>
                             <td>{stat.goals ?? "-"}</td>
                             <td>{stat.assists ?? "-"}</td>
-                            <td>{stat.points ?? "-"}</td>
+                            <td className={styles["points-column"]}>{stat.points ?? "-"}</td>
                             <td>{stat.plusMinus ?? "-"}</td>
                             <td>{stat.pim ?? "-"}</td>
                         </tr>
