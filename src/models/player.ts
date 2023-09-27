@@ -23,7 +23,7 @@ export type NHLPlayerModel = {
     readonly shootsCatches: string,
     readonly rosterStatus: string,
     readonly primaryPosition: NHLPlayerPositionModel;
-    readonly currentTeam: Pick<NHLTeamModel, "name" | "id">;
+    readonly currentTeam: Pick<NHLTeamModel, "name" | "id" | "abbreviation">;
 }
 
 export namespace NHLPlayerModel {

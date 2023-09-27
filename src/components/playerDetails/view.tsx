@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector, useDocumentTitle } from '../../app/hook
 import styles from "./view.module.css";
 import { getPlayerDetails, getPlayerStats } from '../../features/playerDetails/slice';
 import { NHLPlayerModel } from '../../models/player';
+import { teamLogoUrl } from '../../settings';
 
 const PlayerDetailsView: React.FC<{ title: string }> = () => {
     const { player, stats } = useAppSelector(state => state.playerDetails);
@@ -34,7 +35,7 @@ const PlayerDetailsView: React.FC<{ title: string }> = () => {
         if (teamId) {
             return (
                 <div style={{
-                    backgroundImage: `url("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${teamId}.svg")`,
+                    backgroundImage: `url("${teamLogoUrl(player.currentTeam.abbreviation)}"`,
                 }} className={sharedStyles.background}></div>
             )
         }

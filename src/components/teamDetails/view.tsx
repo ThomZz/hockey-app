@@ -10,12 +10,13 @@ import { getTeamSchedule, updateCurrentScheduleIndex } from '../../features/team
 import Schedule from '../schedule/schedule';
 import { DateHelper } from '../../utils/date';
 import { NHLScheduleGroupModel } from '../../models/schedule';
+import { teamLogoUrl } from '../../settings';
 
 const TeamDetailsView: React.FC<{ title: string }> = () => {
     const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
     const tId = parseInt(String(id!));
-    const { roster, name: teamName, id: teamId } = useAppSelector(state => state.teamDetails);
+    const { roster, abbreviation: teamAbbreviation, name: teamName, id: teamId } = useAppSelector(state => state.teamDetails);
     const { schedules, currentScheduleIndex, loading } = useAppSelector(state => state.teamSchedule);
 
     useDocumentTitle(teamName);
@@ -44,11 +45,11 @@ const TeamDetailsView: React.FC<{ title: string }> = () => {
     return shouldFetch ? null : (
         <div className={styles.container}>
             <div style={{
-                backgroundImage: `url("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${id}.svg")`,
+                backgroundImage: `url("${teamLogoUrl(teamAbbreviation)}")`,
             }} className={sharedStyles.background}>
             </div>
             <header className={sharedStyles.header}>
-                <img height="100" width="100" alt={teamName} src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${id}.svg`} />
+                <img height="100" width="100" alt={teamName} src={teamLogoUrl(teamAbbreviation)} />
                 <h3>{teamName}</h3>
             </header>
             <div className={sharedStyles.main}>

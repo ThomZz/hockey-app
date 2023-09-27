@@ -5,6 +5,7 @@ import styles from "./scheduleGames.module.css";
 import { SplideSlide } from '@splidejs/react-splide';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
+import { teamLogoUrl } from '../../settings';
 
 const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
 
@@ -20,7 +21,7 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
     const renderScore = (right: any, left: any, rightLinescore: NHLGameLineScoreResultDetailsModel, game: NHLGameModel) => {
         return (
             <div className={right?.score > left?.score ? styles.emphasis : styles.discrete}>
-                <img height="50" width="50" alt="" src={`https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${right?.team.id}.svg`} />
+                <img height="50" width="50" alt="" src={teamLogoUrl(right?.team.abbreviation)} />
                 <div className={styles["team-infos"]}>
                     <span>{right?.team.name}</span>
                     <span className={styles["team-record"]}>({right?.leagueRecord.wins} - {right?.leagueRecord.losses} - {right?.leagueRecord.ot})</span>

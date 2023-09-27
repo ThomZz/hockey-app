@@ -32,7 +32,7 @@ export default class NHLStatsApiService {
   }
 
   async getSchedule(startDate: string, endDate: string, teamId?: number, ): Promise<NHLScheduleGroupModel> {
-    const result = await axios.get<NHLScheduleGroupDto>(`https://statsapi.web.nhl.com/api/v1/schedule?${teamId ? `teamId=${teamId}&` : ""}startDate=${startDate}&endDate=${endDate}&expand=schedule.linescore`);
+    const result = await axios.get<NHLScheduleGroupDto>(`https://statsapi.web.nhl.com/api/v1/schedule?${teamId ? `teamId=${teamId}&` : ""}startDate=${startDate}&endDate=${endDate}&expand=schedule.linescore&expand=schedule.teams`);
     return NHLScheduleGroupModel.fromDto(result.data);
   }
 
@@ -42,7 +42,7 @@ export default class NHLStatsApiService {
   }
 
   async getPlayerDetails(playerId: number): Promise<NHLPlayerModel> {
-    const result = await axios.get<NHLPeopleDto>(`https://statsapi.web.nhl.com/api/v1/people/${playerId}`);
+    const result = await axios.get<NHLPeopleDto>(`https://statsapi.web.nhl.com/api/v1/people/${playerId}?expand=person.currentTeam`);
     const [player] = result.data.people;
     return NHLPlayerModel.fromDto(player);
   }

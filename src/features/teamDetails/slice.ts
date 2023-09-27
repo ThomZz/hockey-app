@@ -7,12 +7,14 @@ import NHLStatsApiService from '../../services/nhl-stats-api-service';
 export interface TeamDetailsState {
     id: number;
     name: string;
+    abbreviation: string;
     roster: NHLRosterMemberModel[];
 }
 
 const initialState: TeamDetailsState = {
     id: 0,
     name: "",
+    abbreviation: "",
     roster: []
 }
 

@@ -26,7 +26,7 @@ export type NHLPlayerDto = {
     readonly shootsCatches: string,
     readonly rosterStatus: string,
     readonly primaryPosition: NHLPlayerPositionDto;
-    readonly currentTeam: Pick<NHLTeamDto, "name" | "id">
+    readonly currentTeam: Pick<NHLTeamDto, "name" | "id" | 'abbreviation'>
 }
 
 export type NHLPlayerPositionDto = {

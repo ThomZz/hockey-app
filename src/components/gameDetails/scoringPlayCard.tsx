@@ -4,6 +4,7 @@ import styles from "./scoringPlayCard.module.css";
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../app/routes';
 import { NHLLiveFeedModel, NHLLiveFeedPlayModel, NHLLiveFeedPlayPlayerModel } from '../../models/live-feed';
+import { teamLogoUrl } from '../../settings';
 
 type Props = {
     play: NHLLiveFeedPlayModel;
@@ -47,7 +48,7 @@ const ScoringPlayCard: React.FC<Props> = ({ play, liveFeed }) => {
     return (
         <div className={styles["scoring-summary"]}>
         <div style={{
-            backgroundImage: `url("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/${scorerTeam.id}.svg")`
+            backgroundImage: `url("${teamLogoUrl(isScorerHome ? homeTeam.abbreviation : awayTeam.abbreviation)}")`
         }} className={`${sharedStyles.background} ${styles["scoring-summary-background"]}`}></div>
             <div className={styles["scoring-summary-card"]}>
                 <Link style={{ fontSize: "16px" }} to={AppRoutes.resolvePath(AppRoutes.routes.playerDetails, { id: scorerTeam.id, playerId: scorer!.player.id })}>
