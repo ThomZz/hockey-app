@@ -1,5 +1,6 @@
 import axios from "axios";
 import { singleton, inject } from "tsyringe";
+import { NHlPlayerSearchDto } from "../models/dtos/player";
 import { NHlPlayerSearchModel } from "../models/player";
 import Logger from "./logger";
 
@@ -10,7 +11,7 @@ export default class NHLSuggestApiService {
 
   async getMatchingPlayers(nameFragment: string): Promise<NHlPlayerSearchModel[]> {
     this._logger?.info("gettingPlayerSuggestions");
-    const result = await axios.get<any>(`https://thomzz.free.mockoapp.net/svc/suggest/v1/minplayers/${nameFragment}/500`);
-    return [...NHlPlayerSearchModel.fromRawData(result.data.suggestions)];
+    const result = await axios.get<NHlPlayerSearchDto[]>(`https://search.d3.nhle.com/api/v1/search/player?culture=en-us&limit=500&q=${nameFragment}`);
+    return [...NHlPlayerSearchModel.fromDtos(result.data)];
   }
 }

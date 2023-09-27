@@ -37,19 +37,21 @@ export type NHLPlayerPositionDto = {
 }
 
 export type NHlPlayerSearchDto = {
-    readonly id: number;
-    readonly lastName: string,
-    readonly firstName: string,
-    readonly isActive: boolean,
-    readonly unknownFlag: boolean,
+    readonly playerId: string,
+    readonly name: string,
+    readonly positionCode: string,
+    readonly teamId?: string,
+    readonly teamAbbrev?: string,
+    readonly lastTeamId?: string,
+    readonly lastTeamAbbrev?: string,
+    readonly lastSeasonId?: string,
+    readonly sweaterNumber?: number,
+    readonly active: boolean,
     readonly height: string,
-    readonly weight: number,
-    readonly birthPlace: string,
+    readonly heightInCentimeters: number,
+    readonly weightInPounds: number,
+    readonly weightInKilograms: number,
+    readonly birthCity: string,
     readonly birthStateProvince: string,
-    readonly birthCountry: string,
-    readonly birthDate: string,
-    readonly currentTeamAbb: string,
-    readonly primaryPosition: string,
-    readonly primaryNumber: number,
-    readonly playerSlug: string;
+    readonly birthCountry: string
 }

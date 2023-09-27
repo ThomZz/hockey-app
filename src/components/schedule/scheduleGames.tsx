@@ -58,6 +58,15 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
         )
     }
 
+    const renderGameType = (type: string) => {
+        switch(type) {
+            case 'PR':
+                return (<div title="pre-season game" className={styles["game-type-banner"]}>pre</div>)
+            default:
+                return;
+        }
+    }
+
     return (
         <>
             {games?.map((game, idx, allGames) => {
@@ -67,6 +76,7 @@ const ScheduleGame: React.FC<{ games: NHLGameModel[] }> = ({ games }) => {
                         <SplideSlide key={`${game.gameDate}-${idx}`}>
                             <div className={styles.container}>
                                 <Link className={styles.card} to={AppRoutes.resolvePath(AppRoutes.routes.gameDetails, { gameId: game.gamePk })}>
+                                    {renderGameType(game.gameType)}
                                     <span className={styles.date}>{DateHelper.toString(new Date(game.gameDate), true)}</span>
                                     <hr className={styles.separator}></hr>
                                     {gameState(game.status, game.linescore)}

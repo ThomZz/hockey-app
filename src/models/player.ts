@@ -1,4 +1,4 @@
-import { NHLPlayerDto, NHLPlayerPositionDto } from "./dtos/player"
+import { NHLPlayerDto, NHLPlayerPositionDto, NHlPlayerSearchDto } from "./dtos/player"
 import { NHLTeamModel } from "./team";
 
 export type NHLPlayerModel = {
@@ -49,49 +49,40 @@ export namespace NHLPlayerPositionModel {
 }
 
 export type NHlPlayerSearchModel = {
-    readonly id: number;
-    readonly lastName: string,
-    readonly firstName: string,
-    readonly isActive: boolean,
-    readonly unknownFlag: boolean,
+    readonly playerId: number,
+    readonly name: string,
+    readonly positionCode: string,
+    readonly teamId?: number,
+    readonly teamAbbrev?: string,
+    readonly lastTeamId?: number,
+    readonly lastTeamAbbrev?: string,
+    readonly lastSeasonId?: number,
+    readonly sweaterNumber?: number,
+    readonly active: boolean,
     readonly height: string,
-    readonly weight: number,
-    readonly birthPlace: string,
+    readonly heightInCentimeters: number,
+    readonly weightInPounds: number,
+    readonly weightInKilograms: number,
+    readonly birthCity: string,
     readonly birthStateProvince: string,
-    readonly birthCountry: string,
-    readonly birthDate: string,
-    readonly currentTeamAbb: string,
-    readonly primaryPosition: string,
-    readonly primaryNumber: number,
-    readonly playerSlug: string;
+    readonly birthCountry: string
 }
 
 export namespace NHlPlayerSearchModel {
     
-    export function* fromRawData(rawData: string[]): Iterable<NHlPlayerSearchModel> {
-        for (const data of rawData) {
-            yield fromDataLine(data)
+    export function* fromDtos(dtos: NHlPlayerSearchDto[]): Iterable<NHlPlayerSearchModel> {
+        for (const data of dtos) {
+            yield fromDto(data)
         }
     }
 
-    export function fromDataLine(rawData: string): NHlPlayerSearchModel {
-        const properties = rawData.split('|');
+    export function fromDto(dto: NHlPlayerSearchDto): NHlPlayerSearchModel {
         return {
-            id: Number(properties[0]),
-            lastName: properties[1],
-            firstName: properties[2],
-            isActive: !!Number(properties[3]),
-            unknownFlag: !!Number(properties[4]),
-            height: properties[5],
-            weight: Number(properties[6]),
-            birthPlace: properties[7],
-            birthStateProvince: properties[8],
-            birthCountry: properties[9],
-            birthDate: properties[10],
-            currentTeamAbb: properties[11],
-            primaryPosition: properties[12],
-            primaryNumber: Number(properties[13]),
-            playerSlug: properties[14]
+            ...dto,
+            playerId: Number(dto.playerId),
+            teamId: dto.teamId ? Number(dto.teamId) : undefined,
+            lastTeamId: dto.lastTeamId ? Number(dto.lastTeamId) : undefined,
+            lastSeasonId: dto.lastSeasonId ? Number(dto.lastSeasonId) : undefined
         }
     }
 }

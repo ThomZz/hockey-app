@@ -19,16 +19,15 @@ const PlayersSearchView: React.FC<{ title: string }> = ({ title }) => {
     const checkForDirectNavigation = (players: NHlPlayerSearchModel[]) => {
         if (players.length === 1) {
             const [player] = players;
-            navigate(AppRoutes.resolvePath("playerDetails", { playerId: player.id }), { replace: true });
+            navigate(AppRoutes.resolvePath("playerDetails", { playerId: player.playerId }), { replace: true });
         }
     }
 
     useEffect(() => {
         const run = async () => {
-            const decodedNameLike = decodeURIComponent(nameLike!);
-            if (decodedNameLike !== lastSearch) {
-                const { payload: playerSuggestions } = await dispatch(listPlayers(decodedNameLike)) as { payload: NHlPlayerSearchModel[] };
-                dispatch(updateLastSearch(decodedNameLike))
+            if (nameLike && nameLike !== lastSearch) {
+                const { payload: playerSuggestions } = await dispatch(listPlayers(nameLike)) as { payload: NHlPlayerSearchModel[] };
+                dispatch(updateLastSearch(nameLike))
                 checkForDirectNavigation(playerSuggestions);
             }
             else {

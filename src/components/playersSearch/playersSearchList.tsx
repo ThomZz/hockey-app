@@ -18,37 +18,45 @@ const PlayersSearchList: React.FC<{ players: NHlPlayerSearchModel[] }> = ({ play
         navigate(AppRoutes.resolvePath("playerDetails", { playerId: playerId }))
     }
 
+    const getBirthPlace = (player: NHlPlayerSearchModel) => {
+        const segments = [];
+        if (player.birthCity) segments.push(player.birthCity);
+        if (player.birthStateProvince) segments.push(player.birthStateProvince);
+        if (player.birthCountry) segments.push(player.birthCountry);
+        return segments.join(', ');
+    }
+
     return (
         <table data-table-type="plain" className={`${sharedStyles.table} ${styles.table}`}>
             <thead>
                 <tr>
                     <th>Player</th>
-                    <th>Status</th>
-                    <th>Birthdate</th>
-                    <th>State/Prov</th>
-                    <th>Country</th>
+                    <th>Position</th>
                     <th>Team</th>
                     <th>Number</th>
-                    <th>Position</th>
+                    <th>Status</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Birthplace</th>
                 </tr>
             </thead>
             <tbody>
                 {
                     players.map(player => (
-                        <tr onClick={() => onRowClick(player.id)}>
+                        <tr onClick={() => onRowClick(player.playerId)}>
                             <td className={styles.playerImgColumn}>
                                 <img className={sharedStyles["player-img"]} style={{ width: "32px", height: "32px", backgroundImage: 'url("/player-loading.png")' }}
-                                    loading="lazy" src={`https://cms.nhl.bamgrid.com/images/headshots/current/168x168/${player.id}.jpg`}
+                                    loading="lazy" src={`https://cms.nhl.bamgrid.com/images/headshots/current/168x168/${player.playerId}.jpg`}
                                     alt="" onError={onImgLoadError} />
-                                {`${player.firstName} ${player.lastName}`}
+                                {`${player.name}`}
                             </td>
-                            <td>{player.isActive ? "Active" : "Inactive"}</td>
-                            <td>{player.birthDate}</td>
-                            <td>{player.birthStateProvince || "N/A"}</td>
-                            <td>{player.birthCountry}</td>
-                            <td>{player.currentTeamAbb}</td>
-                            <td>{player.primaryNumber}</td>
-                            <td>{player.primaryPosition}</td>
+                            <td>{player.positionCode ?? "--"}</td>
+                            <td>{player.lastTeamAbbrev ?? "--"}</td>
+                            <td>{player.sweaterNumber ?? "--"}</td>
+                            <td>{player.active ? "Active" : "Inactive"}</td>
+                            <td>{player.height  ?? "--"}</td>
+                            <td>{player.weightInPounds ?  `${player.weightInPounds} lbs` : "--"}</td>
+                            <td>{getBirthPlace(player)}</td>
                         </tr>
                     ))}
             </tbody>
