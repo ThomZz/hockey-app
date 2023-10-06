@@ -101,9 +101,17 @@ export type NHLLiveFeedPlaysDto = {
     scoringPlays: number[];
 }
 
+export type NHLLiveFeedPlayTeamDto = {
+    id: number;
+    link: string;
+    name: string;
+    triCode: string;
+}
+
 export type NHLLiveFeedPlayDto = {
     about: NHLLiveFeedPlayDetailsDto;
     result: NHLLiveFeedPlayResultDto;
+    team: NHLLiveFeedPlayTeamDto;
     players: NHLLiveFeedPlayPlayerDto[];
 }
 

@@ -1,4 +1,4 @@
-import { NHLLiveFeedBoxscoreDto, NHLLiveFeedBoxscoreGoalieStatsDto, NHLLiveFeedBoxscorePlayerDto, NHLLiveFeedBoxscorePlayerStatsDto, NHLLiveFeedBoxscoreSkaterStatsDto, NHLLiveFeedBoxscoreTeamDto, NHLLiveFeedBoxscoreTeamsDto, NHLLiveFeedDto, NHLLiveFeedGameDataDto, NHLLiveFeedLineScoreDto, NHLLiveFeedLineScoreResultDetailsDto, NHLLiveFeedLineScoreResultDto, NHLLiveFeedLiveDataDto, NHLLiveFeedPlayDetailsDto, NHLLiveFeedPlayDto, NHLLiveFeedPlayersDto, NHLLiveFeedPlayPlayerDto, NHLLiveFeedPlayResultDto, NHLLiveFeedPlaysDto, NHLLiveFeedTeamsDto } from "./dtos/live-feed";
+import { NHLLiveFeedBoxscoreDto, NHLLiveFeedBoxscoreGoalieStatsDto, NHLLiveFeedBoxscorePlayerDto, NHLLiveFeedBoxscorePlayerStatsDto, NHLLiveFeedBoxscoreSkaterStatsDto, NHLLiveFeedBoxscoreTeamDto, NHLLiveFeedBoxscoreTeamsDto, NHLLiveFeedDto, NHLLiveFeedGameDataDto, NHLLiveFeedLineScoreDto, NHLLiveFeedLineScoreResultDetailsDto, NHLLiveFeedLineScoreResultDto, NHLLiveFeedLiveDataDto, NHLLiveFeedPlayDetailsDto, NHLLiveFeedPlayDto, NHLLiveFeedPlayersDto, NHLLiveFeedPlayPlayerDto, NHLLiveFeedPlayResultDto, NHLLiveFeedPlaysDto, NHLLiveFeedPlayTeamDto, NHLLiveFeedTeamsDto } from "./dtos/live-feed";
 import { NHLPlayerModel, NHLPlayerPositionModel } from "./player";
 import { NHLGameStatusModel } from "./schedule";
 import { NHLTeamModel } from "./team";
@@ -230,9 +230,25 @@ export namespace NHLLiveFeedPlaysModel {
     }
 }
 
+export type NHLLiveFeedPlayTeamModel = {
+    id: number;
+    link: string;
+    name: string;
+    triCode: string;
+}
+
+export namespace NHLLiveFeedPlayTeamModel {
+    export function fromDto(dto: NHLLiveFeedPlayTeamDto): NHLLiveFeedPlayTeamModel {
+        return {
+            ...dto
+        }
+    }
+}
+
 export type NHLLiveFeedPlayModel = {
     about: NHLLiveFeedPlayDetailsModel;
     result: NHLLiveFeedPlayResultModel;
+    team: NHLLiveFeedPlayTeamModel;
     players: NHLLiveFeedPlayPlayerModel[];
 }
 
@@ -241,6 +257,7 @@ export namespace NHLLiveFeedPlayModel {
         return {
             about: NHLLiveFeedPlayDetailsModel.fromDto(dto.about),
             result: NHLLiveFeedPlayResultModel.fromDto(dto.result),
+            team: NHLLiveFeedPlayTeamModel.fromDto(dto.team),
             players: [...NHLLiveFeedPlayPlayerModel.fromDtos(dto.players)]
         }
     }

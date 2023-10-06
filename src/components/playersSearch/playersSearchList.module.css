@@ -8,12 +8,13 @@
 }
 
 .table tbody tr:hover, .table tbody tr:hover > td {
-    background-color: rgba(85, 84, 84, 0.622) !important;
+    background-color: #a75604d9 !important;
 }
 
 .table td {
     padding: 5px !important;
     text-align: center;
+    text-wrap: nowrap;
 }
 
 .playerImgColumn {

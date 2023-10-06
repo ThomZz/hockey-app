@@ -25,7 +25,7 @@ const PlayersSearch: React.FC<{}> = () => {
     return (
         <form className={styles.form} onSubmit={search}>
             <input  placeholder="Search for any players" onInput={onInput} className={sharedStyles.input} ref={searchInput} type="text" />
-            <button type="submit" disabled={ !!!filterInputValue || filterInputValue.length < 4 } className={sharedStyles["icon-button"]}> Search </button>
+            <button type="submit" disabled={ !!!filterInputValue || filterInputValue.length < 3 } className={sharedStyles["icon-button"]}> Search </button>
         </form>
     );
 }

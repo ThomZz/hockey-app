@@ -15,6 +15,7 @@
 
 .player-img {
   background-size: cover;
+  border-radius: 5%;
 }
 
 @media screen and (max-width: 1800px) {
